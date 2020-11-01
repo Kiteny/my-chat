@@ -1,3 +1,4 @@
 import RegistrationForm from './RegistrationForm';
+import AuthorizationForm from './AuthorizationForm';
 
-export default RegistrationForm;
+export { RegistrationForm, AuthorizationForm };
