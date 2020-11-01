@@ -1,0 +1,21 @@
+.ui-field {
+  & {
+    margin: 10px 0;
+    display: block;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+  }
+
+  input {
+    width: 300px;
+    padding: 10px;
+
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+
+    font-size: 1rem;
+  }
+}

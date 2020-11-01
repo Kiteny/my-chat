@@ -1,0 +1,19 @@
+.ui-button {
+  & {
+    border: none;
+    border-radius: 5px;
+
+    padding: 10px;
+    margin: 0 auto;
+    width: 200px;
+
+    font-size: 1.1em;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #083d77;
+  }
+
+  &:active {
+    background-color: #da4167;
+  }
+}
