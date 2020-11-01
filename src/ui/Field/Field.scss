@@ -7,6 +7,7 @@
   &__title {
     margin-bottom: 5px;
     font-size: 1.1rem;
+    color: #6d6d6d;
   }
 
   input {
@@ -17,5 +18,10 @@
     border-radius: 5px;
 
     font-size: 1rem;
+  }
+
+  input:focus {
+    outline: none;
+    border: 1px solid #da4167;
   }
 }

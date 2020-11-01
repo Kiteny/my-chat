@@ -1,5 +1,6 @@
 import React from 'react';
+import RegistrationForm from '../features/user';
 
-const App = () => <div>App</div>;
+const App = () => <RegistrationForm />;
 
 export default App;
