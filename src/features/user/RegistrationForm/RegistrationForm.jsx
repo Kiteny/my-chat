@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 import { Field } from '../../../ui';
 import UserForm from '../UserForm';
-
-import './RegistrationForm.scss';
 
 const RegistrationForm = () => {
   const { register, handleSubmit } = useForm();
@@ -11,7 +11,12 @@ const RegistrationForm = () => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <UserForm onSubmit={handleSubmit(onSubmit)} title="Регистрация" buttonTitle="Регистрация">
+    <UserForm
+      onSubmit={handleSubmit(onSubmit)}
+      title="Регистрация"
+      buttonTitle="Регистрация"
+      link={<Link to="/auth">Нет аккаунта?</Link>}
+    >
       <Field
         title="Имя"
         name="username"
