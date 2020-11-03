@@ -15,6 +15,19 @@ const UserApi = {
       },
     });
   },
+  signIn(email, password) {
+    return axios(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
+        email,
+        password,
+        returnSecureToken: 'true',
+      },
+    });
+  },
   updateProfile(idToken, displayName) {
     return axios(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${API_KEY}`, {
       method: 'post',

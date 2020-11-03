@@ -23,4 +23,14 @@
     outline: none;
     border: 1px solid #da4167;
   }
+
+  &__error-message {
+    background-color: #da4167;
+    color: #ffffff;
+    padding: 0px 5px;
+    border-radius: 5px 5px 0px 0px;
+
+    position: relative;
+    top: 5px;
+  }
 }

@@ -1,0 +1,32 @@
+import {
+  apply, put, take, call,
+} from 'redux-saga/effects';
+
+import { actions } from '../userSlice';
+import UserApi from '../../../../api/userApi';
+
+const { writeError, writeUserData } = actions;
+
+export default function* registrationSaga() {
+  while (true) {
+    const { payload } = yield take('user/registration');
+    yield call(registration, payload);
+  }
+}
+
+function* registration({ email, password, username }) {
+  try {
+    const regResponse = yield apply(UserApi, UserApi.signUp, [email, password]);
+    const { idToken, refreshToken } = regResponse.data;
+
+    UserApi.setRefreshToken(refreshToken);
+
+    yield apply(UserApi, UserApi.updateProfile, [idToken, username]);
+    const userData = yield apply(UserApi, UserApi.getUserData, [idToken]);
+
+    yield put(writeUserData(userData.data.users[0]));
+  } catch (e) {
+    const { error } = e.response.data;
+    yield put({ ...writeError(), error });
+  }
+}
