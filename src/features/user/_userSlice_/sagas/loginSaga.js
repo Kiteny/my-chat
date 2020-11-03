@@ -1,39 +1,43 @@
 import {
-  apply, cancel, fork, put, take,
+  apply, fork, put, take,
 } from 'redux-saga/effects';
 
 import { actions } from '../userSlice';
 import UserApi from '../../../../api/userApi';
 
-const { writeUserData, writeError } = actions;
+const { writeError, fetchUserData } = actions;
 
 export default function* loginSaga() {
-  while (true) {
-    const { payload } = yield take('user/authorization');
+  let isLoggedIn = !!UserApi.getRefreshToken();
 
-    const task = yield fork(authorize, payload);
+  while (true) {
+    if (!isLoggedIn) {
+      const { payload } = yield take('user/authorization');
+      yield fork(authorize, payload);
+    } else {
+      yield put(fetchUserData());
+    }
+
     let action = yield take(['user/writeUserData', 'user/writeError']);
 
     if (action.type === 'user/writeUserData') {
       action = yield take('user/logout');
     }
 
-    if (action.type === 'user/logout') {
-      yield cancel(task);
-    }
     yield apply(UserApi, UserApi.setRefreshToken, ['']);
+
+    isLoggedIn = false;
   }
 }
 
 function* authorize({ email, password }) {
   try {
     const regResponse = yield apply(UserApi, UserApi.signIn, [email, password]);
-    const { idToken, refreshToken } = regResponse.data;
+    const { refreshToken } = regResponse.data;
 
     UserApi.setRefreshToken(refreshToken);
 
-    const userData = yield apply(UserApi, UserApi.getUserData, [idToken]);
-    yield put(writeUserData(userData.data.users[0]));
+    yield put(fetchUserData());
   } catch (e) {
     const { error } = e.response.data;
     yield put({ ...writeError(), error });

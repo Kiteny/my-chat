@@ -20,6 +20,9 @@ const userSlice = createSlice({
     authorization: (state) => {
       state.status = 'pending';
     },
+    fetchUserData: (state) => {
+      state.status = 'pending';
+    },
     logout: (state) => {
       state.userData = null;
       state.status = 'failure';
