@@ -4,9 +4,8 @@ import {
 
 import { actions } from '../userSlice';
 import UserApi from '../../../../api/userApi';
-import fetchUserDataSaga from './fetchUserDataSaga';
 
-const { writeError } = actions;
+const { writeError, fetchUserData } = actions;
 
 export default function* registrationSaga() {
   while (true) {
@@ -24,7 +23,7 @@ function* registration({ email, password, username }) {
 
     yield apply(UserApi, UserApi.updateProfile, [idToken, username]);
 
-    yield put(fetchUserDataSaga());
+    yield put(fetchUserData());
   } catch (e) {
     const { error } = e.response.data;
     yield put({ ...writeError(), error });

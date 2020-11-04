@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import UserForm from '../UserForm';
 import { Field } from '../../../ui';
@@ -9,11 +9,14 @@ import { userSelectors, userActions } from '../_userSlice_';
 
 import { EMAIL_REGEXP } from '../constants';
 
-const { selectUserError } = userSelectors;
+const { selectUserError, selectUserStatus, selectUserLoggedIn } = userSelectors;
 const { authorization } = userActions;
 
 const AuthorizationForm = () => {
   const userError = useSelector(selectUserError);
+  const userStatus = useSelector(selectUserStatus);
+  const isLoggedIn = useSelector(selectUserLoggedIn);
+
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
 
@@ -33,13 +36,18 @@ const AuthorizationForm = () => {
     required: true,
   };
 
+  if (isLoggedIn) {
+    return <Redirect to="/rooms" />;
+  }
+
   return (
     <UserForm
       onSubmit={handleSubmit(onSubmit)}
       title="Авторизация"
       buttonTitle="Войти"
-      link={<Link to="/reg">Есть аккаунт?</Link>}
+      link={<Link to="/reg">Нет аккаунта?</Link>}
       errorMessage={userError && getHumanMessage(userError.message)}
+      showLoader={userStatus === 'pending'}
     >
       <Field
         title="Email"
@@ -63,6 +71,8 @@ function getHumanMessage(message) {
   switch (message) {
     case 'EMAIL_NOT_FOUND':
       return 'Пользователь не найден';
+    case 'INVALID_PASSWORD':
+      return 'Неверный пароль';
     default:
       return '';
   }

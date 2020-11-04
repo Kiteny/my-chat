@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import UserForm from '../UserForm';
 import { Field } from '../../../ui';
@@ -10,10 +10,13 @@ import { userActions, userSelectors } from '../_userSlice_';
 import { EMAIL_REGEXP } from '../constants';
 
 const { registration } = userActions;
-const { selectUserError } = userSelectors;
+const { selectUserError, selectUserStatus, selectUserLoggedIn } = userSelectors;
 
 const RegistrationForm = () => {
   const userError = useSelector(selectUserError);
+  const userStatus = useSelector(selectUserStatus);
+  const isLoggedIn = useSelector(selectUserLoggedIn);
+
   const dispatch = useDispatch();
 
   const {
@@ -49,13 +52,18 @@ const RegistrationForm = () => {
     validate: (value) => value === watch('password') || 'Пароли не совпадают',
   };
 
+  if (isLoggedIn) {
+    return <Redirect to="/rooms" />;
+  }
+
   return (
     <UserForm
       onSubmit={handleSubmit(onSubmit)}
       title="Регистрация"
       buttonTitle="Регистрация"
-      link={<Link to="/auth">Нет аккаунта?</Link>}
+      link={<Link to="/auth">Есть аккаунт?</Link>}
       errorMessage={userError && getHumanMessage(userError.message)}
+      showLoader={userStatus === 'pending'}
     >
       <Field
         title="Имя"
