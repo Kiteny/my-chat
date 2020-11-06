@@ -5,7 +5,7 @@ import {
 import UserApi from '../../../../api/userApi';
 import { actions } from '../userSlice';
 
-const { writeUserData } = actions;
+const { writeUserData, writeError } = actions;
 
 export default function* fetchUserDataSaga() {
   while (true) {
@@ -15,9 +15,14 @@ export default function* fetchUserDataSaga() {
 }
 
 function* fetchUserData() {
-  const refreshToken = yield apply(UserApi, UserApi.getRefreshToken);
-  const idToken = yield apply(UserApi, UserApi.getAccessToken, [refreshToken]);
+  try {
+    const refreshToken = yield apply(UserApi, UserApi.getRefreshToken);
+    const idToken = yield apply(UserApi, UserApi.getAccessToken, [refreshToken]);
 
-  const userData = yield apply(UserApi, UserApi.getUserData, [idToken]);
-  yield put(writeUserData(userData.data.users[0]));
+    const userData = yield apply(UserApi, UserApi.getUserData, [idToken]);
+    yield put(writeUserData(userData.data.users[0]));
+  } catch (e) {
+    const { error } = e.response.data;
+    yield put({ ...writeError(), error });
+  }
 }
