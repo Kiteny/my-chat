@@ -1,0 +1,39 @@
+.room-list {
+  & {
+    width: 500px;
+    margin: 30px auto;
+    padding: 20px 0px;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__list {
+    margin: 10px;
+  }
+
+  &__list-item a {
+    display: block;
+    padding: 10px;
+    border-bottom: none;
+    cursor: pointer;
+    
+  }
+
+  &__list-item + &__list-item {
+    border-top: 1px solid rgb(197, 197, 197);
+  }
+
+  &__list-item:hover {
+    text-decoration: underline;
+  }
+
+  &__loader {
+    margin: 0 auto;
+    width: 80px;
+  }
+}

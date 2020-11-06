@@ -8,7 +8,7 @@ import './UserForm.scss';
 const UserForm = ({
   onSubmit, title, buttonTitle, children, link, errorMessage, showLoader,
 }) => (
-  <form onSubmit={onSubmit} className="user-form">
+  <form onSubmit={onSubmit} className="user-form app-border">
     <div className="user-form__errorMessage">{ errorMessage }</div>
 
     <h2 className="user-form__title">
