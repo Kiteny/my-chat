@@ -58,7 +58,9 @@ const UserApi = {
   getRefreshToken() {
     return localStorage.getItem('refreshToken');
   },
-  async getAccessToken(refreshToken) {
+  async getAccessToken() {
+    const refreshToken = this.getRefreshToken();
+
     const response = await axios(`https://securetoken.googleapis.com/v1/token?key=${API_KEY}`, {
       method: 'post',
       headers: {

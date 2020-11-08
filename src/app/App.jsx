@@ -6,6 +6,7 @@ import {
 
 import { AuthorizationForm, RegistrationForm, userSelectors } from '../features/user';
 import { RoomsList } from '../features/rooms';
+import { Chat } from '../features/chat';
 
 import './App.scss';
 
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/reg" component={RegistrationForm} exact />
         <Route path="/auth" component={AuthorizationForm} exact />
 
+        {isLoggedIn && <Route path="/rooms/:chatId" component={Chat} />}
         {isLoggedIn && <Route path="/rooms" component={RoomsList} />}
 
         {isLoggedIn && <Redirect to="/rooms" />}

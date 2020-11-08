@@ -45,6 +45,7 @@ export const { reducer, actions } = userSlice;
 
 export const selectors = {
   selectUserError: (state) => state.user.error,
+  selectUserData: (state) => state.user.userData,
   selectUserStatus: (state) => state.user.status,
   selectUserLoggedIn: (state) => state.user.isLoggedIn,
 };

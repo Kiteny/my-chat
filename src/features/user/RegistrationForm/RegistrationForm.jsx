@@ -101,6 +101,8 @@ function getHumanMessage(message) {
   switch (message) {
     case 'EMAIL_EXISTS':
       return 'Пользователь с данным email уже существует';
+    case 'INVALID_EMAIL':
+      return 'Недопустимый email';
     default:
       return '';
   }

@@ -20,6 +20,7 @@
     "rules": {
         "react/jsx-props-no-spreading": "off",
         "no-param-reassign": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "func-names": "off"
     }
 }
