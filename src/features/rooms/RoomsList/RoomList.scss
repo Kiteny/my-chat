@@ -2,7 +2,7 @@
   & {
     width: 500px;
     margin: 30px auto;
-    padding: 20px 0px;
+    padding: 0px 0px 20px;
   }
 
   &__title {
@@ -35,5 +35,26 @@
   &__loader {
     margin: 0 auto;
     width: 80px;
+  }
+
+  &__top-bar {
+    background-color: #da4167;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__logout {
+    background: none;
+    color: #fff;
+
+    font-size: 25px;
+
+    border: none;
+    margin-left: 10px;
+
+    cursor: pointer;
+    outline: none;
   }
 }
