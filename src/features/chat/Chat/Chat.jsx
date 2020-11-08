@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 
-import { Button } from '../../../ui';
-import { chatActions, chatSelectors } from '../_chatSlice_';
+import SendForm from './components/SendForm';
+import Messages from './components/Messages';
+
+import { chatActions } from '../_chatSlice_';
 
 import './Chat.scss';
 
-const { sendMessage, subscribeNewMessages, unsubscribeNewMessages } = chatActions;
-const { selectChatEntities } = chatSelectors;
+const { subscribeNewMessages, unsubscribeNewMessages } = chatActions;
 
 const Chat = () => {
-  const [message, setMessage] = useState('');
   const { chatId } = useParams();
-  const messages = useSelector(selectChatEntities) ?? [];
 
   const dispatch = useDispatch();
 
@@ -22,31 +21,15 @@ const Chat = () => {
     return () => dispatch(unsubscribeNewMessages());
   }, []);
 
-  const onSend = async (e) => {
-    e.preventDefault();
-
-    dispatch(sendMessage({ chatId, message }));
-    setMessage('');
-  };
-
-  const renderedMessages = Object.keys(messages).map((key) => (
-    <li key={key} className="chat__message">
-      {messages[key].nameAuthor}
-      :
-      {' '}
-      {messages[key].message}
-    </li>
-  ));
-
   return (
     <div className="app-border chat">
-      <ul className="chat__messages" ref={(elem) => { if (elem) elem.scrollTop = elem?.scrollHeight; }}>
-        {renderedMessages}
-      </ul>
-      <form className="chat__form" onSubmit={onSend}>
-        <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-        <Button type="submit" title="Отправить" />
-      </form>
+      <div className="chat__top-bar">
+        <Link className="chat__back" to="/rooms">
+          <i className="fa fa-chevron-left" />
+        </Link>
+      </div>
+      <Messages />
+      <SendForm />
     </div>
   );
 };

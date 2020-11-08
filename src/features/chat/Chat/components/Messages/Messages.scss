@@ -1,0 +1,17 @@
+.messages-list {
+  & {
+    overflow-y: scroll;
+
+    border: 1px solid #adadad;
+    border-left: none;
+    border-right: none;
+
+    margin-bottom: 10px;
+
+    flex: 1 0;
+  }
+
+  &__message {
+    
+  }
+}

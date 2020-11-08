@@ -1,0 +1,24 @@
+.message-form {
+  &{
+    display: flex;
+  }
+  
+  input {
+    padding: 5px;
+    
+    font-size: 18px;
+    
+    border: 1px solid #adadad;
+    border-radius: 3px;
+    flex: 1 0 auto;
+  }
+  
+  input:focus {
+    border: 1px solid #da4167;
+    outline: none;
+  }
+  
+  button {
+    margin-left: 10px;
+  }
+}
