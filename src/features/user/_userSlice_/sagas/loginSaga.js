@@ -39,7 +39,11 @@ function* authorize({ email, password }) {
 
     yield put(fetchUserData());
   } catch (e) {
-    const { error } = e.response.data;
-    yield put({ ...writeError(), error });
+    if (e.response) {
+      const { error } = e.response.data;
+      yield put({ ...writeError(), error });
+    } else {
+      throw e;
+    }
   }
 }

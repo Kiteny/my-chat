@@ -23,7 +23,11 @@ function* sendMessage({ payload }) {
 
     yield apply(ChatApi, ChatApi.sendMessage, [accessToken, displayName, chatId, message]);
   } catch (e) {
-    const { error } = e.response.data;
-    yield put({ ...writeError(), error });
+    if (e.response) {
+      const { error } = e.response.data;
+      yield put({ ...writeError(), error });
+    } else {
+      throw e;
+    }
   }
 }

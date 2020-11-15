@@ -9,6 +9,7 @@ import { RoomsList } from '../features/rooms';
 import { Chat } from '../features/chat';
 
 import './App.scss';
+import CriticalErrorBoundary from './components/CriticalErrorBoundary';
 
 const { selectUserLoggedIn } = userSelectors;
 
@@ -16,18 +17,20 @@ const App = () => {
   const isLoggedIn = useSelector(selectUserLoggedIn);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/reg" component={RegistrationForm} exact />
-        <Route path="/auth" component={AuthorizationForm} exact />
+    <CriticalErrorBoundary>
+      <Router>
+        <Switch>
+          <Route path="/reg" component={RegistrationForm} exact />
+          <Route path="/auth" component={AuthorizationForm} exact />
 
-        {isLoggedIn && <Route path="/rooms/:chatId" component={Chat} />}
-        {isLoggedIn && <Route path="/rooms" component={RoomsList} />}
+          {isLoggedIn && <Route path="/rooms/:chatId" component={Chat} />}
+          {isLoggedIn && <Route path="/rooms" component={RoomsList} />}
 
-        {isLoggedIn && <Redirect to="/rooms" />}
-        <Redirect to="/auth" />
-      </Switch>
-    </Router>
+          {isLoggedIn && <Redirect to="/rooms" />}
+          <Redirect to="/auth" />
+        </Switch>
+      </Router>
+    </CriticalErrorBoundary>
   );
 };
 

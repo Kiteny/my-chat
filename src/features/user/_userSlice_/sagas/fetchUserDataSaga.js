@@ -22,7 +22,11 @@ function* fetchUserData() {
     const userData = yield apply(UserApi, UserApi.getUserData, [idToken]);
     yield put(writeUserData(userData.data.users[0]));
   } catch (e) {
-    const { error } = e.response.data;
-    yield put({ ...writeError(), error });
+    if (e.response) {
+      const { error } = e.response.data;
+      yield put({ ...writeError(), error });
+    } else {
+      throw e;
+    }
   }
 }
