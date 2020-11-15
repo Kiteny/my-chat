@@ -1,10 +1,16 @@
 .message-form {
   &{
     display: flex;
+    margin: 0 15px 15px;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0 5px 5px;
   }
   
   input {
     padding: 5px;
+    width: 100px;
     
     font-size: 18px;
     
@@ -14,6 +20,7 @@
   }
   
   input:focus {
+    min-width: 200px;
     border: 1px solid #da4167;
     outline: none;
   }
