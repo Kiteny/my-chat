@@ -24,7 +24,7 @@ const SendForm = () => {
   return (
     <form className="message-form" onSubmit={onSend}>
       <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-      <Button type="submit" title={<i className="fa fa-paper-plane" ariaHidden="true" />} />
+      <Button type="submit" title={<i className="fa fa-paper-plane" aria-hidden="true" />} />
     </form>
   );
 };

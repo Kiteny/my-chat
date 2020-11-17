@@ -11,7 +11,7 @@ const Button = ({ title, type }) => (
 );
 
 Button.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.object.isRequired,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
 };
 
