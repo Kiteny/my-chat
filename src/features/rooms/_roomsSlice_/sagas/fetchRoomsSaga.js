@@ -24,7 +24,7 @@ function* fetchRooms() {
 
     yield put(writeRoomsData(transformedRoomsData));
   } catch (e) {
-    if (e.response) {
+    if (e.isAxiosError) {
       const { error } = e.response.data;
       yield put({ ...writeError(), error });
     } else {

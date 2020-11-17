@@ -22,7 +22,7 @@ function* fetchUserData() {
     const userData = yield apply(UserApi, UserApi.getUserData, [idToken]);
     yield put(writeUserData(userData.data.users[0]));
   } catch (e) {
-    if (e.response) {
+    if (e.isAxiosError) {
       const { error } = e.response.data;
       yield put({ ...writeError(), error });
     } else {

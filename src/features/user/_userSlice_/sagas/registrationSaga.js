@@ -25,7 +25,7 @@ function* registration({ email, password, username }) {
 
     yield put(fetchUserData());
   } catch (e) {
-    if (e.response) {
+    if (e.isAxiosError) {
       const { error } = e.response.data;
       yield put({ ...writeError(), error });
     } else {
