@@ -5,7 +5,3 @@
 * [React router dom](https://reactrouter.com/)
 * [Redux saga](https://redux-saga.js.org/)
 * [axios](https://github.com/axios/axios)
-
-## Установка
-
-### $ npm i 
